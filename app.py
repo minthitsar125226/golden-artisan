@@ -1,3 +1,6 @@
+st.markdown("""
+<link rel="manifest" href="manifest.json">
+""", unsafe_allow_html=True)
 import streamlit as st
 
 # ၁။ App အပြင်အဆင်
