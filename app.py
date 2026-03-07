@@ -107,7 +107,6 @@ with tab3:
     u_rate = st.number_input("Dollar Rate (MMK):", value=4800)
     mm_gold = (w_price * u_rate) / 1.875
     st.metric("မြန်မာ့အခေါက်ရွှေဈေး (ခန့်မှန်း)", f"{int(mm_gold):,} ကျပ်")
-
 # --- Tab 4: လက်စွပ် နှင့် လက်ကောက် အတိုင်းအတာ (၁၆ ပဲစနစ်) ---
 with tab4:
     st.subheader("💍 လက်စွပ် နှင့် လက်ကောက် တိုင်းတာခြင်း")
@@ -122,12 +121,11 @@ with tab4:
         
         col_r1, col_r2 = st.columns(2)
         r_inch_main = col_r1.selectbox("လက်မ (Inch):", [1, 2], index=0, key="r_inch_16")
-        r_pe = col_r2.selectbox("ပဲ (Pe):", pe_options, index=12, key="r_pe_16") # 1.75 inch ခန့်မှန်း
+        r_pe_val = col_r2.selectbox("ပဲ (Pe):", pe_options, index=12, key="r_pe_16")
         
-        # စုစုပေါင်း လက်မတန်ဖိုး (၁၆ ပဲ စနစ် - ၁ ပဲ = 1/16 inch)
-        total_ring_inch = r_inch_main + (r_pe / 16)
+        # စုစုပေါင်း လက်မတန်ဖိုး (၁၆ ပဲ စနစ်)
+        total_ring_inch = r_inch_main + (r_pe_val / 16)
         
-        # လက်စွပ်နံပါတ် ခန့်မှန်းချက်
         if total_ring_inch < 1.75: r_no = 4
         elif total_ring_inch < 1.85: r_no = 6
         elif total_ring_inch < 1.93: r_no = 8
@@ -139,7 +137,7 @@ with tab4:
         
         st.markdown(f"""
             <div class='result-card'>
-                <h3>လုံးပတ်: {r_inch_main} လက်မ {r_pe} ပဲ</h3>
+                <h3>လုံးပတ်: {r_inch_main} လက်မ {r_pe_val} ပဲ</h3>
                 <p>ခန့်မှန်း လက်စွပ်နံပါတ်: <b>{r_no}</b></p>
                 <p>မီလီမီတာ (mm): {total_ring_inch * 25.4:.1f} mm</p>
             </div>
@@ -150,20 +148,21 @@ with tab4:
         
         col_b1, col_b2 = st.columns(2)
         b_inch_main = col_b1.selectbox("လက်မ (Inch):", [2, 1], index=0, key="b_inch_16")
-        b_pe = col_b2.selectbox("ပဲ (Pe):", pe_options, index=4, key="b_pe_16") # 2.25 inch ခန့်မှန်း
+        b_pe_val = col_b2.selectbox("ပဲ (Pe):", pe_options, index=4, key="b_pe_16")
         
         # အချင်းတွက်ချက်ခြင်း (၁၆ ပဲ စနစ်)
-        total_bangle_diameter = b_inch_main + (b_pe / 16)
+        total_bangle_diameter = b_inch_main + (b_pe_val / 16)
         b_circumference = total_bangle_diameter * 3.14159
         
         st.markdown(f"""
             <div class='result-card'>
-                <h3>အချင်း: {b_inch_main} လက်မ {r_pe} ပဲ</h3>
+                <h3>အချင်း: {b_inch_main} လက်မ {b_pe_val} ပဲ</h3>
                 <p>အချင်း (Decimal): {total_bangle_diameter:.4f} လက်မ</p>
                 <p>လုံးပတ် (ဖြန့်တိုင်းလျှင်): {b_circumference:.2f} လက်မ</p>
             </div>
         """, unsafe_allow_html=True)
 
-    st.warning("⚠️ မှတ်ချက် - ဤတွက်ချက်မှုတွင် လူကြီးမင်း ညွှန်ကြားထားသည့်အတိုင်း '၁၆ ပဲ လျှင် ၁ လက်မ' စံနှုန်းကို အသုံးပြုထားပါသည်။")
+    st.warning("⚠️ မှတ်ချက် - ၁၆ ပဲ လျှင် ၁ လက်မ စံနှုန်းကို အသုံးပြုထားပါသည်။")
+
 st.markdown("---")
 st.markdown("<div class='cursive-font'>App by MinThitSarAung</div>", unsafe_allow_html=True)
