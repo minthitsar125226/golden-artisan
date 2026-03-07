@@ -32,7 +32,7 @@ def format_gold_weight(total_pe):
     return f"{k} ကျပ်၊ {p} ပဲ၊ {y} ရွေး၊ {pt_str}"
 
 # ၃။ Tabs များ ခွဲခြားခြင်း
-tab1, tab2, tab3 = st.tabs(["💰 ရွှေ နှင့် ငွေ", "📏 အချိုးအစားတွက်စက်", "🌍 ကမ္ဘာ့ရွှေဈေး"])
+tab1, tab2, tab3, tab4, = st.tabs(["💰 ရွှေ နှင့် ငွေ", "📏 အချိုးအစားတွက်စက်", "🌍 ကမ္ဘာ့ရွှေဈေး"])
 
 with tab1:
     st.subheader("💰 ရွှေ နှင့် ငွေ လဲလှယ်ခြင်း")
@@ -107,6 +107,34 @@ with tab3:
     u_rate = st.number_input("Dollar Rate (MMK):", value=4800)
     mm_gold = (w_price * u_rate) / 1.875
     st.metric("မြန်မာ့အခေါက်ရွှေဈေး (ခန့်မှန်း)", f"{int(mm_gold):,} ကျပ်")
+
+# --- Tab 4: လက်စွပ်တိုင်း (Ring Sizer) ---
+with tab4:
+    st.subheader("💍 လက်စွပ်တိုင်း တွက်ချက်ခြင်း")
+    
+    # Unit ပြောင်းလဲခြင်း (mm to inch)
+    st.markdown("#### ၁။ အတိုင်းအတာ ပြောင်းလဲခြင်း")
+    mm_input = st.number_input("လုံးပတ် (မီလီမီတာ - mm):", value=50.0, step=0.1)
+    inch_val = mm_input / 25.4
+    st.info(f"ရလဒ် (လက်မ - inch): {inch_val:.2f} လက်မ")
+    
+    st.divider()
+    
+    # လက်စွပ်တိုင်း ဇယားရှာဖွေခြင်း
+    st.markdown("#### ၂။ လက်စွပ် နံပါတ်ရှာရန်")
+    user_inch = st.slider("သင့်လက်စွပ် လုံးပတ် (လက်မ):", 1.5, 2.5, 1.97, 0.01)
+    
+    # ဇယားအတိုင်း ခန့်မှန်းတွက်ချက်ခြင်း
+    if user_inch < 1.75: ring_no = 4
+    elif user_inch < 1.85: ring_no = 6
+    elif user_inch < 1.93: ring_no = 8
+    elif user_inch < 2.01: ring_no = 10
+    elif user_inch < 2.09: ring_no = 12
+    elif user_inch < 2.17: ring_no = 14
+    elif user_inch < 2.24: ring_no = 16
+    else: ring_no = 18
+    
+    st.markdown(f"<div class='result-card'><h3>ခန့်မှန်း လက်စွပ်နံပါတ်: {ring_no}</h3></div>", unsafe_allow_html=True)
 
 st.markdown("---")
 st.markdown("<div class='cursive-font'>App by MinThitSarAung</div>", unsafe_allow_html=True)
